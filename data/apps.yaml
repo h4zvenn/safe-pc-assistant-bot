@@ -1,63 +1,93 @@
+# Allowlist of applications the assistant may open (Telegram, text and voice share it).
+#
+# Fields:
+#   name / display_name  human-readable name
+#   paths                candidate executables; the first one that exists is used.
+#                        %VAR% references (%LOCALAPPDATA%, %APPDATA%, %ProgramFiles%,
+#                        %ProgramFiles(x86)%, %USERPROFILE%) are expanded per user.
+#   args                 fixed arguments (never taken from user input)
+#   process_names        process image names (status and /close)
+#   aliases              spoken / typed names, Russian and Ukrainian included
+#   allow_close          true = may be closed (always asks for confirmation)
+# A missing executable is reported only when someone tries to open that app.
 apps:
   steam:
     name: "Steam"
-    path: "C:/Program Files (x86)/Steam/steam.exe"
-    process_names:
-      - "steam.exe"
+    paths:
+      - "%ProgramFiles(x86)%/Steam/steam.exe"
+      - "%ProgramFiles%/Steam/steam.exe"
+    process_names: ["steam.exe"]
+    aliases: ["steam", "стим", "стім"]
+    allow_close: true
 
   discord:
     name: "Discord"
-    path: "C:/Users/offku/AppData/Local/Discord/Update.exe"
-    args:
-      - "--processStart"
-      - "Discord.exe"
-    process_names:
-      - "Discord.exe"
+    paths:
+      - "%LOCALAPPDATA%/Discord/Update.exe"
+    args: ["--processStart", "Discord.exe"]
+    process_names: ["Discord.exe"]
+    aliases: ["discord", "дискорд", "діскорд"]
+    allow_close: true
 
   chrome:
     name: "Google Chrome"
-    path: "C:/Program Files/Google/Chrome/Application/chrome.exe"
-    process_names:
-      - "chrome.exe"
+    paths:
+      - "%ProgramFiles%/Google/Chrome/Application/chrome.exe"
+      - "%ProgramFiles(x86)%/Google/Chrome/Application/chrome.exe"
+      - "%LOCALAPPDATA%/Google/Chrome/Application/chrome.exe"
+    process_names: ["chrome.exe"]
+    aliases: ["chrome", "google chrome", "хром", "гугл хром", "браузер"]
+    allow_close: true
 
   telegram:
     name: "Telegram"
-    path: "C:/Users/offku/AppData/Roaming/Telegram Desktop/Telegram.exe"
-    process_names:
-      - "Telegram.exe"
+    paths:
+      - "%APPDATA%/Telegram Desktop/Telegram.exe"
+      - "%LOCALAPPDATA%/Telegram Desktop/Telegram.exe"
+    process_names: ["Telegram.exe"]
+    aliases: ["telegram", "телеграм", "телеграма"]
+    allow_close: true
 
   spotify:
     name: "Spotify"
-    path: "C:/Users/offku/AppData/Roaming/Spotify/Spotify.exe"
-    process_names:
-      - "Spotify.exe"
+    paths:
+      - "%APPDATA%/Spotify/Spotify.exe"
+      - "%LOCALAPPDATA%/Microsoft/WindowsApps/Spotify.exe"
+    process_names: ["Spotify.exe"]
+    aliases: ["spotify", "спотифай", "спотіфай"]
 
   obs:
     name: "OBS Studio"
-    path: "C:/Program Files/obs-studio/bin/64bit/obs64.exe"
-    process_names:
-      - "obs64.exe"
+    paths:
+      - "%ProgramFiles%/obs-studio/bin/64bit/obs64.exe"
+    process_names: ["obs64.exe"]
+    aliases: ["obs", "обс", "обэс", "obs studio"]
 
   riot:
     name: "Riot Client"
-    path: "C:/Riot Games/Riot Client/Riot Client Services.exe"
-    process_names:
-      - "RiotClientServices.exe"
+    paths:
+      - "C:/Riot Games/Riot Client/RiotClientServices.exe"
+      - "%ProgramFiles%/Riot Games/Riot Client/RiotClientServices.exe"
+    process_names: ["RiotClientServices.exe"]
+    aliases: ["riot", "riot client", "риот", "ріот"]
 
   explorer:
     name: "Explorer"
-    path: "C:/Windows/explorer.exe"
-    process_names:
-      - "explorer.exe"
+    paths:
+      - "%SystemRoot%/explorer.exe"
+    process_names: ["explorer.exe"]
+    aliases: ["проводник", "провідник", "explorer"]
 
   notepad:
     name: "Notepad"
-    path: "C:/Windows/System32/notepad.exe"
-    process_names:
-      - "notepad.exe"
+    paths:
+      - "%SystemRoot%/System32/notepad.exe"
+    process_names: ["notepad.exe"]
+    aliases: ["notepad", "блокнот"]
 
   taskmgr:
     name: "Task Manager"
-    path: "C:/Windows/System32/Taskmgr.exe"
-    process_names:
-      - "Taskmgr.exe"
+    paths:
+      - "%SystemRoot%/System32/Taskmgr.exe"
+    process_names: ["Taskmgr.exe"]
+    aliases: ["диспетчер задач", "диспетчер завдань", "task manager"]

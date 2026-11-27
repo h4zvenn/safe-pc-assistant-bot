@@ -1,3 +1,10 @@
+# Sites the assistant may open (voice, text and Telegram). Only https and only these hosts.
+#
+# sites.<id>:
+#   name        shown name
+#   url         page to open (https, host must be in allowed_domains)
+#   search_url  optional, must contain {query}: enables "найди в ютубе котиков"
+#   aliases     spoken names, Russian and Ukrainian included (inflected forms like "ютубе" match too)
 urls:
   allowed_domains:
     - "youtube.com"
@@ -6,6 +13,32 @@ urls:
     - "open.spotify.com"
     - "anilist.co"
     - "myanimelist.net"
+    - "google.com"
+    - "www.google.com"
 
   allowed_exact_urls:
     - "https://open.spotify.com/"
+
+  sites:
+    youtube:
+      name: "YouTube"
+      url: "https://www.youtube.com/"
+      search_url: "https://www.youtube.com/results?search_query={query}"
+      aliases: ["youtube", "ютуб", "ютюб", "ютьюб", "ютубе", "ютубі"]
+    google:
+      name: "Google"
+      url: "https://www.google.com/"
+      search_url: "https://www.google.com/search?q={query}"
+      aliases: ["google", "гугл", "гуглі", "гугле"]
+    spotify_web:
+      name: "Spotify (веб)"
+      url: "https://open.spotify.com/"
+      aliases: ["spotify web", "спотифай веб", "веб спотифай"]
+    anilist:
+      name: "AniList"
+      url: "https://anilist.co/"
+      aliases: ["anilist", "анилист", "аніліст"]
+    myanimelist:
+      name: "MyAnimeList"
+      url: "https://myanimelist.net/"
+      aliases: ["myanimelist", "майанимелист", "мал"]

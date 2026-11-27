@@ -1,0 +1,5 @@
+# Optional: run speech recognition on an NVIDIA GPU (JARVIS_STT_DEVICE=cuda).
+# ~1 GB of CUDA 12 libraries; without them JARVIS falls back to the CPU automatically.
+-r requirements-voice.txt
+nvidia-cublas-cu12
+nvidia-cudnn-cu12

@@ -64,10 +64,29 @@ def media_keyboard() -> InlineKeyboardMarkup:
             [
                 InlineKeyboardButton(text="💯 100%", callback_data="media:vol:100"),
                 InlineKeyboardButton(text="🔇 Без звука", callback_data="media:mute"),
+                InlineKeyboardButton(text="🔊 Со звуком", callback_data="media:unmute"),
+            ],
+            [
+                InlineKeyboardButton(text="⏮", callback_data="media:prev"),
+                InlineKeyboardButton(text="⏸ Пауза", callback_data="media:pause"),
+                InlineKeyboardButton(text="▶️ Играть", callback_data="media:play"),
+                InlineKeyboardButton(text="⏭", callback_data="media:next"),
             ],
             [
                 InlineKeyboardButton(text="⬅️ Назад", callback_data="menu:main"),
                 InlineKeyboardButton(text="🏠 Главное меню", callback_data="menu:main"),
             ],
+        ]
+    )
+
+def power_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="⏻ Выключить", callback_data="power:shutdown"),
+                InlineKeyboardButton(text="🔄 Перезагрузить", callback_data="power:restart"),
+            ],
+            [InlineKeyboardButton(text="🛑 Отменить выключение", callback_data="power:cancel")],
+            [InlineKeyboardButton(text="🏠 Главное меню", callback_data="menu:main")],
         ]
     )

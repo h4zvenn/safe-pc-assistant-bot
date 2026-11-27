@@ -1,6 +1,12 @@
+# Scenarios are fixed lists of registered steps. Allowed step types:
+#   open_app (app: <app id from apps.yaml>), health_check, ping_check [host],
+#   show_heavy_apps, set_volume (level: 0..100), mute_volume
+# require_confirmation: true = Telegram/local confirmation before running.
+# aliases: spoken names for the voice / text modes.
 scenarios:
   gaming:
     description: "Gaming"
+    aliases: ["игровой режим", "игровий режим", "ігровий режим", "режим игры", "режим гри", "gaming", "game mode"]
     require_confirmation: false
     steps:
       - type: "health_check"
@@ -12,6 +18,7 @@ scenarios:
 
   stream:
     description: "Streaming"
+    aliases: ["стрим", "режим стрима", "режим стріму", "streaming"]
     require_confirmation: false
     steps:
       - type: "open_app"
@@ -23,6 +30,7 @@ scenarios:
 
   night:
     description: "Night mode"
+    aliases: ["ночной режим", "нічний режим", "night mode"]
     require_confirmation: false
     steps:
       - type: "open_app"
@@ -30,6 +38,7 @@ scenarios:
 
   work:
     description: "Work"
+    aliases: ["рабочий режим", "робочий режим", "work mode"]
     require_confirmation: true
     steps:
       - type: "open_app"
@@ -37,6 +46,7 @@ scenarios:
 
   afk:
     description: "AFK"
+    aliases: ["афк", "режим афк", "afk"]
     require_confirmation: true
     steps:
       - type: "show_heavy_apps"

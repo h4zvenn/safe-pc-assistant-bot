@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from security.path_guard import is_safe_child
+from utils.paths import expand_path
 from utils.yaml_loader import load_yaml
 
 
@@ -12,7 +13,7 @@ def load_files_config(data_dir: Path) -> dict:
 
 def load_allowed_roots(data_dir: Path) -> list[Path]:
     data = load_files_config(data_dir)
-    return [Path(item) for item in data.get("folders", {}).get("allowed_roots", [])]
+    return [expand_path(item) for item in (data.get("folders") or {}).get("allowed_roots") or []]
 
 
 def load_allowed_extensions(data_dir: Path) -> set[str]:

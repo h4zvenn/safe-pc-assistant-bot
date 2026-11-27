@@ -1,10 +1,14 @@
+# steam_app_id (optional) lets the assistant start the game through Steam.
 games:
   cs2:
     display_name: "CS2"
+    steam_app_id: 730
+    aliases: ["cs2", "кс2", "кс 2", "counter strike", "контр страйк"]
     process_names:
       - "cs2.exe"
   valorant:
     display_name: "Valorant"
+    aliases: ["valorant", "валорант"]
     process_names:
       - "VALORANT-Win64-Shipping.exe"
 

@@ -1,35 +1,21 @@
 from __future__ import annotations
 
-from html import escape
-
 from aiogram import Router
 from aiogram.filters import Command, CommandObject
 from aiogram.types import Message
 
+from actions import ActionService
 from config import AppConfig
+from handlers.dispatch import run_action
 from security.auth import ensure_authorized
-from services.apps_service import load_apps, open_allowed_app, running_allowlisted_apps
 
 router = Router()
 
 
 @router.message(Command("apps"))
-async def cmd_apps(message: Message, config: AppConfig) -> None:
-    if not await ensure_authorized(message, config):
-        return
-
-    apps = load_apps(config.data_dir)
-
-    if not apps:
-        await message.answer("<b>📦 Приложения</b>\n\nСписок пуст.")
-        return
-
-    text = "<b>📦 Доступные приложения</b>\n\n" + "\n".join(
-        f"• <code>{escape(key)}</code> — {escape(app.display_name)}"
-        for key, app in apps.items()
-    )
-
-    await message.answer(text)
+async def cmd_apps(message: Message, config: AppConfig, actions: ActionService) -> None:
+    if await ensure_authorized(message, config):
+        await run_action(message, actions, "list_apps")
 
 
 @router.message(Command("open"))
@@ -37,12 +23,12 @@ async def cmd_open(
     message: Message,
     command: CommandObject,
     config: AppConfig,
+    actions: ActionService,
 ) -> None:
     if not await ensure_authorized(message, config):
         return
 
     app_key = (command.args or "").strip().lower()
-
     if not app_key:
         await message.answer(
             "<b>📦 Открытие приложения</b>\n\n"
@@ -51,28 +37,58 @@ async def cmd_open(
         )
         return
 
-    ok, result = open_allowed_app(config.data_dir, app_key)
-    prefix = "✅" if ok else "❌"
-
-    await message.answer(
-        "<b>📦 Открытие приложения</b>\n\n"
-        f"{prefix} {escape(result)}"
-    )
+    await run_action(message, actions, "open_app", {"app_id": app_key})
 
 
-@router.message(Command("runningapps"))
-async def cmd_runningapps(message: Message, config: AppConfig) -> None:
+@router.message(Command("close"))
+async def cmd_close(
+    message: Message,
+    command: CommandObject,
+    config: AppConfig,
+    actions: ActionService,
+) -> None:
     if not await ensure_authorized(message, config):
         return
 
-    items = running_allowlisted_apps(config.data_dir)
-
-    if not items:
-        await message.answer("<b>🖥 Запущенные приложения</b>\n\nНичего не найдено.")
+    app_key = (command.args or "").strip().lower()
+    if not app_key:
+        await message.answer(
+            "<b>📦 Закрытие приложения</b>\n\n"
+            "Пример: <code>/close discord</code>\n"
+            "Разрешено только для приложений с <code>allow_close: true</code> в apps.yaml."
+        )
         return
 
-    text = "<b>🖥 Запущенные приложения</b>\n\n" + "\n".join(
-        f"• {escape(item)}" for item in items
-    )
+    await run_action(message, actions, "close_app", {"app_id": app_key})
 
-    await message.answer(text)
+
+@router.message(Command("sites"))
+async def cmd_sites(message: Message, config: AppConfig, actions: ActionService) -> None:
+    if await ensure_authorized(message, config):
+        await run_action(message, actions, "list_sites")
+
+
+@router.message(Command("site"))
+async def cmd_site(
+    message: Message,
+    command: CommandObject,
+    config: AppConfig,
+    actions: ActionService,
+) -> None:
+    if not await ensure_authorized(message, config):
+        return
+
+    site_key = (command.args or "").strip().lower()
+    if not site_key:
+        await message.answer(
+            "<b>🌐 Сайты</b>\n\nПример: <code>/site youtube</code>. Список: /sites"
+        )
+        return
+
+    await run_action(message, actions, "open_site", {"site_id": site_key})
+
+
+@router.message(Command("runningapps"))
+async def cmd_runningapps(message: Message, config: AppConfig, actions: ActionService) -> None:
+    if await ensure_authorized(message, config):
+        await run_action(message, actions, "running_apps")

@@ -1,9 +1,17 @@
 .env
+.env.*
+!.env.example
 venv/
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
 .idea/
 .vscode/
 logs/
 *.log
+# Recordings and speech models are never part of the repo
+*.wav
+*.mp3
+*.onnx
+*.bin

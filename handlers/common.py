@@ -10,7 +10,7 @@ from security.auth import ensure_authorized
 
 router = Router()
 
-GITHUB_URL = "https://github.com/kuzmenkodev/safe-pc-assistant-bot"
+GITHUB_URL = "https://github.com/h4zvenn/safe-pc-assistant-bot"
 
 
 def help_keyboard() -> InlineKeyboardMarkup:
@@ -50,5 +50,4 @@ async def cmd_help(message: Message, config: AppConfig) -> None:
         "проверять игровой статус, запускать сценарии и подтверждать действия питания.\n\n"
         "Основная навигация находится в меню ниже.",
         reply_markup=help_keyboard(),
-    )
     )
