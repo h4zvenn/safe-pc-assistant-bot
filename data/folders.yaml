@@ -1,8 +1,8 @@
+# Folders listed by /files. %VAR% references are expanded; missing folders are skipped.
 folders:
   allowed_roots:
-    - "C:/Users/USERNAME/Downloads/BotInbox"
-    - "C:/Users/USERNAME/Desktop/Shared"
-    - "D:/Media/Allowed"
+    - "%USERPROFILE%/Downloads/BotInbox"
+    - "%USERPROFILE%/Desktop/Shared"
 
 limits:
   max_file_size_mb: 50
@@ -14,3 +14,26 @@ limits:
     - ".jpeg"
     - ".zip"
     - ".pdf"
+
+# Folders that "открой загрузки" etc. may open in Explorer (voice, text). Only these, never a free path.
+shortcuts:
+  downloads:
+    name: "Загрузки"
+    path: "%USERPROFILE%/Downloads"
+    aliases: ["загрузки", "загрузок", "завантаження", "downloads", "папка загрузок"]
+  documents:
+    name: "Документы"
+    path: "%USERPROFILE%/Documents"
+    aliases: ["документы", "документи", "documents", "папка документы"]
+  pictures:
+    name: "Изображения"
+    path: "%USERPROFILE%/Pictures"
+    aliases: ["изображения", "картинки", "зображення", "pictures", "фото"]
+  videos:
+    name: "Видео"
+    path: "%USERPROFILE%/Videos"
+    aliases: ["видео", "відео", "videos", "папка видео"]
+  music:
+    name: "Музыка"
+    path: "%USERPROFILE%/Music"
+    aliases: ["папка музыка", "папка с музыкой", "папка музика"]
